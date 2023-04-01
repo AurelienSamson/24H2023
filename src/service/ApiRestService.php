@@ -50,7 +50,7 @@ class ApiRestService
         return $content;
     }
 
-    public function CallTeamInventory($methode = 'GET', $teamId, $url = null, $itemId = null)
+    public function CallTeamInventory($methode = 'GET', $teamId, $url = '', $itemId = '')
     {
         if ( !in_array($methode, ['GET', 'PUT']) ) return "Methode non autorisé";
 
@@ -126,7 +126,7 @@ class ApiRestService
         return $content;
     }
 
-    public function CallItems($methode, $url, $itemId, $teamId)
+    public function CallItems($methode, $url = '', $itemId = '', $teamId = '')
     {
         if ( !in_array($methode, ['GET', 'POST']) ) return "Methode non autorisé";
 

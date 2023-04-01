@@ -92,7 +92,7 @@ class Circuit
     public function generateNameFromImage(string $image): self
     {
         $replaced = str_replace('_', ' ', $image);
-        $this->name = ucwords($replaced);
+        $this->name = ucwords(substr($replaced, 0, -4));
 
         return $this;
     }

@@ -9,72 +9,44 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MarketplaceController extends AbstractController
 {
+    public $itemsCategory;
     public function __construct(public ApiRestService $api) {
+        $this->itemsCategory = [
+            'brakes'   => 'Freins',
+            'kits'     => 'Carrosserie',
+            'motors'   => 'Moteur',
+            'spoilers' => 'Aileron',
+            'wheels'   => 'Roues',
+        ];
         $this->api = $api;
     }
 
     #[Route('/marketplace', name: 'app_marketplace')]
     public function index(): Response
     {
-        $items = $this->api->CallItems(methode:'GET');
-
-        dd($items);
-
-
-        $folderBrakes = './assets/images/items/brakes';
-        $filesBrakes = scandir($folderBrakes);
-
-        $folderKits = './assets/images/items/kits';
-        $filesKits = scandir($folderKits);
-
-        $folderMotors = './assets/images/items/motors';
-        $filesMotors = scandir($folderMotors);
-
-        $folderSpoilers = './assets/images/items/spoilers';
-        $filesSpoilers = scandir($folderSpoilers);
-
-        $folderWheels = './assets/images/items/wheels';
-        $filesWheels = scandir($folderWheels);
-
-        // Parcourez les fichiers et affichez-les un par un
-        $imageObjetsBrakes = [];
-        $imageObjetsKits = [];
-        $imageObjetsMotors = [];
-        $imageObjetsSpoilers = [];
-        $imageObjetsWheels = [];
-
-        foreach($filesBrakes as $file) {
-            if($file != "." && $file != "..") { // Ignorez les fichiers "." et ".." qui représentent le dossier courant et le dossier parent
-                $imageObjetsBrakes []= $file;
-            }
-        }
-
-        foreach($filesKits as $file) {
-            if($file != "." && $file != "..") { // Ignorez les fichiers "." et ".." qui représentent le dossier courant et le dossier parent
-                $imageObjetsKits []= $file;
-            }
-        }
-
-        foreach($filesMotors as $file) {
-            if($file != "." && $file != "..") { // Ignorez les fichiers "." et ".." qui représentent le dossier courant et le dossier parent
-                $imageObjetsMotors []= $file;
-            }
-        }
-
-        foreach($filesSpoilers as $file) {
-            if($file != "." && $file != "..") { // Ignorez les fichiers "." et ".." qui représentent le dossier courant et le dossier parent
-                $imageObjetsSpoilers []= $file;
-            }
-        }
-
-        foreach($filesWheels as $file) {
-            if($file != "." && $file != "..") { // Ignorez les fichiers "." et ".." qui représentent le dossier courant et le dossier parent
-                $imageObjetsWheels []= $file;
-            }
-        }
-
         return $this->render('marketplace/index.html.twig', [
-            'items' => $items,
+            'category' => null,
+            'stats' => $this->getStats(),
+            'itemsCategory' => $this->itemsCategory,
+            'imageObjets' => $this->getImageObjets()
+        ]);
+    }
+
+    #[Route('/marketplace/{key}', name: 'app_marketplace_items')]
+    public function items($key)
+    {
+        $CallItems = $this->api->CallItems('GET');
+
+        return $this->render('marketplace/items.html.twig', [
+            'category' => $key,
+            'CallItems' => $CallItems,
+            'itemsCategory' => $this->itemsCategory,
+        ]);
+    }
+
+    public function getStats()
+    {
+        return [
             "statsVoiture"=> [
                 ["puissance", 2],
                 ["accélération", 0],
@@ -84,7 +56,7 @@ class MarketplaceController extends AbstractController
                 ["usure", 0],
                 ["poids", 0],
             ],
-
+    
             "statsVoitureModifie"=> [
                 ["puissance", 1],
                 ["accélération", 0],
@@ -94,12 +66,28 @@ class MarketplaceController extends AbstractController
                 ["usure", 0],
                 ["poids", 0],
             ],
-            'controller_name' => 'SiircuitController',
-            'images_objets_brakers' => $imageObjetsBrakes,
-            'images_objets_kits' => $imageObjetsKits,
-            'images_objets_motors' => $imageObjetsMotors,
-            'images_objets_wheels' => $imageObjetsWheels,
-            'images_objets_wheels' => $imageObjetsSpoilers
-        ]);
+        ];
+    }
+
+    public function getImageObjets($objets = "")
+    {
+        $imageObjets = [
+            'imageObjets_brakes'   => [],
+            'imageObjets_kits'     => [],
+            'imageObjets_motors'   => [],
+            'imageObjets_spoilers' => [],
+            'imageObjets_wheels'   => [],
+        ];
+
+        foreach ($this->itemsCategory as $key => $caterogy) {
+            $filesBrakes = scandir('./assets/images/items/' . $key);
+            foreach($filesBrakes as $file) {
+                if($file != "." && $file != "..") { // Ignorez les fichiers "." et ".." qui représentent le dossier courant et le dossier parent
+                    $imageObjets['imageObjets_'.$key] []= $file;
+                }
+            }
+        }
+
+        return ($objets)? $imageObjets[$objets] : $imageObjets;
     }
 }

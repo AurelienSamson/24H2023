@@ -1,20 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Circuits Sop'Racing{% endblock %}
+{% block title %}Hello SiircuitOptionController!{% endblock %}
 
 {% block body %}
-
-
-
 
 <div class="row">
 
 
-{% for item in images_circuit_offi %}
+{% for item in images_circuit_option %}
 
  <div class="col-sm-3">
   <div class="card">
-   <img src="/assets/images/races/officielles/{{ item.image }}" class="card-img-top" alt="...">
+   <img src="/assets/images/races/optionnelles/{{ item.image }}" class="card-img-top" alt="...">
    <div class="card-body">
      <p class="card-text">{{ item.name }}</p>
    </div>
@@ -26,8 +23,5 @@
 {% endfor %}
 
 </div>
-
-
-
 
 {% endblock %}

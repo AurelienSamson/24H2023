@@ -19,7 +19,7 @@ class MarketplaceInventaireController extends AbstractController
 
         $team = $this->api->CallTeams(methode:'GET', teamId:21);
 
-        dd($teams);
+        dd($team);
 
         return $this->render('marketplace_inventaire/index.html.twig', [
             "statsVoiture"=> [

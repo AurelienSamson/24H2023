@@ -3,34 +3,29 @@
 {% block title %}Hello MarketplaceController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {# {% include 'marketplace/stats_car.html.twig' %} #}
 
-{% include 'statsVoiture.html.twig' %} 
-    {% for item in items %}
-        <pre>
-            {{ dump(item) }}
-        </pre>
-    {% endfor %}
-<input type="checkbox" class="btn-check" id="btn-check_Brakes" autocomplete="off">
-<label class="btn btn-primary" for="btn-check_Brakes">Brakes</label>
+    <h2>Objets du marketplace</h2>
 
-<input type="checkbox" class="btn-check" id="btn-check_Kits" autocomplete="off">
-<label class="btn btn-primary" for="btn-check_Kits">Kits</label>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-link {% if category is null %}active{% endif %}" href="{{ path('app_marketplace') }}">Tous</a>
+            {% for key, itcat in itemsCategory %}
+                <a class="nav-link {% if category == key %}active{% endif %}" href="{{ path('app_marketplace_items', { 'type' : key }) }}">{{itcat}}</a>
+            {% endfor %}
+        </div>
+    </nav>
 
-<input type="checkbox" class="btn-check" id="btn-check_Motors" autocomplete="off">
-<label class="btn btn-primary" for="btn-check_Motors">Motors</label>
-
-<input type="checkbox" class="btn-check" id="btn-check_Spoilers" autocomplete="off">
-<label class="btn btn-primary" for="btn-check_Spoilers">Spoilers</label>
-
-<input type="checkbox" class="btn-check" id="btn-check_Wheels" autocomplete="off">
-<label class="btn btn-primary" for="btn-check_Wheels">Wheels</label>
-
-<h2>Objets du marketplace</h2>
-
-Insérer objets du marketplace ici
+    <div class="tab-content">
+        <div class="container">
+            <div class="row text-center">
+                {% block items %}
+                    {% for item in items %}
+                        {{ dump(item) }}
+                    {% endfor %}
+                {% endblock items %}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

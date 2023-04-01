@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MarketplaceController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+{% include 'statsVoiture.html.twig' %} 
+
+<input type="checkbox" class="btn-check" id="btn-check_Brakes" autocomplete="off">
+<label class="btn btn-primary" for="btn-check_Brakes">Brakes</label>
+
+<input type="checkbox" class="btn-check" id="btn-check_Kits" autocomplete="off">
+<label class="btn btn-primary" for="btn-check_Kits">Kits</label>
+
+<input type="checkbox" class="btn-check" id="btn-check_Motors" autocomplete="off">
+<label class="btn btn-primary" for="btn-check_Motors">Motors</label>
+
+<input type="checkbox" class="btn-check" id="btn-check_Spoilers" autocomplete="off">
+<label class="btn btn-primary" for="btn-check_Spoilers">Spoilers</label>
+
+<input type="checkbox" class="btn-check" id="btn-check_Wheels" autocomplete="off">
+<label class="btn btn-primary" for="btn-check_Wheels">Wheels</label>
+
+<h2>Objets du marketplace</h2>
+
+Insérer objets du marketplace ici
+
+{% endblock %}

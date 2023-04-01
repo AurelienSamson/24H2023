@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Circuit;
 
 class SiircuitController extends AbstractController
 {
@@ -23,7 +24,10 @@ class SiircuitController extends AbstractController
         $imagesOption = [];
         foreach($filesOffi as $file) {
             if($file != "." && $file != "..") { // Ignorez les fichiers "." et ".." qui représentent le dossier courant et le dossier parent
-                $imagesOffi []= $file;
+                $circuit_offi = new Circuit;
+                $circuit_offi->setImage($file);
+                $circuit_offi->generateNameFromImage($file);
+                $imagesOffi []= $circuit_offi;
             }
         }
 

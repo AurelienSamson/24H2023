@@ -9,14 +9,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MarketplaceController extends AbstractController
 {
-    // public function __construct(public ApiRestService $api) {
-    //     $this->api = $api;
-    // }
+    public function __construct(public ApiRestService $api) {
+        $this->api = $api;
+    }
 
     #[Route('/marketplace', name: 'app_marketplace')]
     public function index(): Response
     {
-        // $items = $this->api->CallItems(methode:'GET');
+        $items = $this->api->CallItems(methode:'GET');
+
+        dd($items);
 
 
         $folderBrakes = './assets/images/items/brakes';
@@ -72,7 +74,7 @@ class MarketplaceController extends AbstractController
         }
 
         return $this->render('marketplace/index.html.twig', [
-            // 'items' => $items,
+            'items' => $items,
             "statsVoiture"=> [
                 ["puissance", 2],
                 ["accélération", 0],

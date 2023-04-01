@@ -50,7 +50,7 @@ class ApiRestService
         return $content;
     }
 
-    public function CallTeamInventory($methode = 'GET', $teamId, $url = '', $itemId = '')
+    public function CallTeamInventory($methode = 'GET', $teamId = '', $url = '', $itemId = '')
     {
         if ( !in_array($methode, ['GET', 'PUT']) ) return "Methode non autorisé";
 
@@ -67,7 +67,7 @@ class ApiRestService
                 'json' => $this->body,
             ]);
             $statusCode = $response->getStatusCode();
-            $content = $response->getBody()->getContents();
+            $content = json_decode( $response->getBody()->getContents() );
         } catch (RequestException $e) {
             $content = $e;
         }
@@ -87,7 +87,7 @@ class ApiRestService
                 'json' => $this->body,
             ]);
             $statusCode = $response->getStatusCode();
-            $content = $response->getBody()->getContents();
+            $content = json_decode( $response->getBody()->getContents() );
         } catch (RequestException $e) {
             $content = $e;
         }
@@ -119,7 +119,7 @@ class ApiRestService
                 'json' => $this->body,
             ]);
             $statusCode = $response->getStatusCode();
-            $content = $response->getBody()->getContents();
+            $content = json_decode( $response->getBody()->getContents() );
         } catch (RequestException $e) {
             $content = $e;
         }
@@ -160,7 +160,7 @@ class ApiRestService
                 'json' => $this->body,
             ]);
             $statusCode = $response->getStatusCode();
-            $content = $response->getBody()->getContents();
+            $content = json_decode( $response->getBody()->getContents() );
         } catch (RequestException $e) {
             $content = $e;
         }

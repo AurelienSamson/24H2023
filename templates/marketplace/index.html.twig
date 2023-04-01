@@ -11,15 +11,21 @@
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-link {% if category is null %}active{% endif %}" href="{{ path('app_marketplace') }}">Tous</a>
             {% for key, itcat in itemsCategory %}
-                <a class="nav-link {% if category == key %}active{% endif %}" href="{{ path('app_marketplace_items', { 'key' : key }) }}">{{itcat}}</a>
+                <a class="nav-link {% if category == key %}active{% endif %}" href="{{ path('app_marketplace_items', { 'type' : key }) }}">{{itcat}}</a>
             {% endfor %}
         </div>
     </nav>
 
     <div class="tab-content">
-        {% block items %}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem laborum obcaecati consequuntur nesciunt, debitis necessitatibus illum rem voluptate eligendi accusamus quasi porro esse voluptatum provident blanditiis? Quibusdam accusamus consequuntur suscipit.
-        {% endblock items %}
+        <div class="container">
+            <div class="row text-center">
+                {% block items %}
+                    {% for item in items %}
+                        {{ dump(item) }}
+                    {% endfor %}
+                {% endblock items %}
+            </div>
+        </div>
     </div>
 
 {% endblock %}

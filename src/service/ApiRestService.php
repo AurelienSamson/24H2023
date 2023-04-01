@@ -126,7 +126,7 @@ class ApiRestService
         return $content;
     }
 
-    public function CallItems($methode, $url = '', $itemId = '', $teamId = '', $params = [])
+    public function CallItems($methode, $url = '', $itemId = '', $teamId = '')
     {
         if ( !in_array($methode, ['GET', 'POST']) ) return "Methode non autorisé";
 
@@ -157,8 +157,7 @@ class ApiRestService
 
         try {
             $response = $this->client->request('GET', '/items', [
-                'json' => $this->body,
-                'query' => $params
+                'json' => $this->body
             ]);
             $statusCode = $response->getStatusCode();
             $content = json_decode( $response->getBody()->getContents() );

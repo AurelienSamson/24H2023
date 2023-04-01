@@ -26,22 +26,47 @@ class MarketplaceController extends AbstractController
     {
         return $this->render('marketplace/index.html.twig', [
             'category' => null,
+            'items' => $this->getItems(),
             'stats' => $this->getStats(),
             'itemsCategory' => $this->itemsCategory,
             'imageObjets' => $this->getImageObjets()
         ]);
     }
 
-    #[Route('/marketplace/{key}', name: 'app_marketplace_items')]
-    public function items($key)
+    #[Route('/marketplace/{type}', name: 'app_marketplace_items')]
+    public function items($type)
     {
-        $CallItems = $this->api->CallItems('GET');
-
         return $this->render('marketplace/items.html.twig', [
-            'category' => $key,
-            'CallItems' => $CallItems,
+            'category' => $type,
+            'items' => $this->getItems($type),
             'itemsCategory' => $this->itemsCategory,
         ]);
+    }
+
+    public function getItems($type = "")
+    {
+        $categories = [
+            'brakes' => 'Brakes',
+            'kits' => 'Bodywork',
+            'motors' => 'Motor',
+            'spoilers' => 'Spoiler',
+            'wheels' => 'Wheels'
+        ];
+
+        $CallItems = $this->api->CallItems('GET');
+        $items = [];
+
+        if ($type) {
+            foreach ($CallItems as $value) {
+                if ($value->type == $categories[$type]) {
+                    $items []= $value;
+                }
+            }
+        }else{
+            $items = $CallItems;
+        }
+
+        return $items;
     }
 
     public function getStats()

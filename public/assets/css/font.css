@@ -1,0 +1,10 @@
+@font-face {
+    font-family: "CreamCake";
+    src: url("assets/font/CreamCake.otf") format(otf);
+}
+
+body {
+    background-color: rgb(49,56,156);
+    font-family: 'CreamCake';
+}
+

@@ -12,7 +12,24 @@ class MarketplaceController extends AbstractController
     public function index(): Response
     {
         return $this->render('marketplace/index.html.twig', [
-            'controller_name' => 'MarketplaceController',
+            "statsVoiture"=> [
+                ["puissance", 2],
+                ["accélération", 0],
+                ["adhérence", 0],
+                ["maniabilité", 0],
+                ["consommation", 0],
+                ["usure", 0],
+                ["poids", 0],
+            ],
+            "statsVoitureModifie"=> [
+                ["puissance", 1],
+                ["accélération", 0],
+                ["adhérence", 0],
+                ["maniabilité", 0],
+                ["consommation", 0],
+                ["usure", 0],
+                ["poids", 0],
+            ]
         ]);
     }
 }

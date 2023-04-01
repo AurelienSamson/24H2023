@@ -8,13 +8,79 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<canvas id="statsVoiture" style="max-height: 400px;"></canvas> 
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Users/user_local/Documents/24HCODE/24H2023-1/src/Controller/MarketplaceController.php'|file_link(0) }}">src/Controller/MarketplaceController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Users/user_local/Documents/24HCODE/24H2023-1/templates/marketplace/index.html.twig'|file_link(0) }}">templates/marketplace/index.html.twig</a></code></li>
-    </ul>
-</div>
+
+<script>
+new Chart(
+
+document.getElementById('statsVoiture'),
+{
+    type: 'bar',
+    data: {
+        labels: [ {% for stat in statsVoiture %}'{{ stat[0] }}',{% endfor %} ],
+        datasets: [
+            {
+                data: [ {% for stat in statsVoiture %}'{{ stat[1] }}',{% endfor %} ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255, 205, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(201, 203, 207, 1)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+            },
+            {
+                data: [ {% for stat in statsVoitureModifie %}'{{ stat[1] }}',{% endfor %} ],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+            }
+        ]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+            title: false,
+            legend: false
+        },
+        indexAxis: 'y'
+    },
+}
+)
+</script>
+
+
 {% endblock %}

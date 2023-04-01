@@ -17,7 +17,7 @@ class TestController extends AbstractController
     #[Route('/test', name: 'app_test')]
     public function index(): Response
     {
-        dd($this->api->CallTeams());
+        // dd($this->api->CallTeams());
 
         return $this->render('test/index.html.twig', [
             'controller_name' => "",

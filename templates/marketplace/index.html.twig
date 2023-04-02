@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MarketplaceController!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('assets/css/font.css')}}">
+{% endblock %}
+{% block javascripts %}
+    <script src="{{asset('assets/css/font.css')}}"></script>
+{% endblock %}
+
+{% block title %}Market Place{% endblock %}
 
 {% block body %}
     {# {% include 'marketplace/stats_car.html.twig' %} #}
 
-    <h2>Objets du marketplace</h2>
+    <h2 class="text-uppercase">La Marketplace</h2>
 
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -20,12 +27,11 @@
         <div class="container">
             <div class="row text-center">
                 {% block items %}
-                    {% for item in items %}
-                        {{ dump(item) }}
-                    {% endfor %}
+                    {% include 'marketplace/item.html.twig' %}
                 {% endblock items %}
             </div>
         </div>
     </div>
 
+    <script src="{{asset('assets/css/font.css')}}"></script>
 {% endblock %}

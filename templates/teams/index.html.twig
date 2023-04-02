@@ -5,24 +5,59 @@
 <h2 class="text-uppercase">{{title}}</h2>
 
 <div class="row">
-    <div class="col-lg-7">
-        <div class="row">
-            {% for team in teams %}
-                <div class="col-12 pb-3">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted ">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        b5
-                      </div>
+    {% for team in teams %}
+        <div class="col-12 pb-3">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <div>{{team.name}}</div>
+                        <div>
+                            Score : {{team.score}}
+                            &emsp;
+                            Points : {{team.coin}}
+                        </div>
                     </div>
                 </div>
-            {% endfor %}
+                <div class="card-body">
+                    <div>
+                        <div>Acceleration</div>
+                        <div class="progress mb-3" role="progressbar" aria-label="Success example" aria-valuenow="{{team.vehicle.acceleration}}" aria-valuemin="0" aria-valuemax="60">
+                            <div class="progress-bar bg-success" style="width: {{ team.vehicle.acceleration }}%">{{ team.vehicle.acceleration }}</div>
+                        </div>
+
+                        <div>Consommation</div>
+                        <div class="progress mb-3" role="progressbar" aria-label="Info example" aria-valuenow="{{team.vehicle.energyConsumption}}" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-info" style="width: {{ team.vehicle.energyConsumption }}%">{{ team.vehicle.energyConsumption }}</div>
+                        </div>
+
+                        <div>Adherence</div>
+                        <div class="progress mb-3" role="progressbar" aria-label="Warning example" aria-valuenow="{{team.vehicle.grip}}" aria-valuemin="0" aria-valuemax="60">
+                            <div class="progress-bar bg-warning" style="width: {{ team.vehicle.grip }}%">{{ team.vehicle.grip }}</div>
+                        </div>
+                        
+                        <div>Maniabilite</div>
+                        <div class="progress mb-3" role="progressbar" aria-label="Danger example" aria-valuenow="{{team.vehicle.handlingAbility}}" aria-valuemin="0" aria-valuemax="60">
+                            <div class="progress-bar bg-danger" style="width: {{ team.vehicle.handlingAbility }}%">{{ team.vehicle.handlingAbility }}</div>
+                        </div>
+
+                        <div>Puissance</div>
+                        <div class="progress mb-3" role="progressbar" aria-label="Info example" aria-valuenow="{{team.vehicle.power}}" aria-valuemin="0" aria-valuemax="60">
+                            <div class="progress-bar bg-info" style="width: {{ team.vehicle.power }}%">{{ team.vehicle.power }}</div>
+                        </div>
+
+                        <div>Usure</div>
+                        <div class="progress mb-3" role="progressbar" aria-label="Warning example" aria-valuenow="{{team.vehicle.wear}}" aria-valuemin="0" aria-valuemax="60">
+                            <div class="progress-bar bg-warning" style="width: {{ team.vehicle.wear }}%">{{ team.vehicle.wear }}</div>
+                        </div>
+
+                        <div>Poids</div>
+                        <div class="progress mb-3" role="progressbar" aria-label="Danger example" aria-valuenow="{{team.vehicle.weight}}" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-danger" style="width: {{ team.vehicle.weight }}%">{{ team.vehicle.weight }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-lg-5">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, tenetur.
-    </div>
+    {% endfor %}
 </div>
 {% endblock %}

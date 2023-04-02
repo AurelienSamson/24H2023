@@ -49,6 +49,7 @@ class MarketplaceController extends AbstractController
     #[Route('/marketplace/inventory', name: 'app_marketplace_inventory')]
     public function inventory()
     {
+        
         return $this->render('marketplace/inventory.html.twig', [
             'stats' => $this->getStats(),
             // 'category' => $type,

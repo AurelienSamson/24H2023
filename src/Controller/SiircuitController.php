@@ -29,7 +29,7 @@ class SiircuitController extends AbstractController
         foreach($listCircuit as $circuit) {
             if ($circuit->optional == false) {
                 $circuit_medals = $this->api->CallRaces(url:'run', raceId:$circuit->id, teamId:21);
-                $voiture = new Voiture($circuit_medals->stats->power, $circuit_medals->stats->acceleration, $circuit_medals->stats->grip, $circuit_medals->stats->handlingAbility, $circuit_medals->stats->weight);
+                $voiture = new Voiture($circuit_medals->stats->power, $circuit_medals->stats->acceleration, $circuit_medals->stats->grip, $circuit_medals->stats->handlingAbility, $circuit_medals->stats->weight, $circuit_medals->stats->energyConsumption, $circuit_medals->stats->wear);
                 $circuit_medals = $circuit_medals->medal;
                 
                 $circuit_offi = new Circuit;
@@ -72,12 +72,14 @@ class SiircuitController extends AbstractController
         foreach($listCircuit as $circuit) {
             if ($circuit->optional == true) {
                 $circuit_medals = $this->api->CallRaces(url:'run', raceId:$circuit->id, teamId:21);
+                $voiture = new Voiture($circuit_medals->stats->power, $circuit_medals->stats->acceleration, $circuit_medals->stats->grip, $circuit_medals->stats->handlingAbility, $circuit_medals->stats->weight, $circuit_medals->stats->energyConsumption, $circuit_medals->stats->wear);
                 $circuit_medals = $circuit_medals->medal;
                 $circuit_option = new Circuit;
                 $circuit_option->setImage($circuit->image);
                 $circuit_option->setName($circuit->name);
                 $circuit_option->setTours($circuit->laps);
                 $circuit_option->setMedals($circuit_medals);
+                $circuit_option->setVoiture($voiture);
                 foreach ($circuit->sections as $section) {
                     $circuit_option->addSection($section->terrain, $section->type);
                 }

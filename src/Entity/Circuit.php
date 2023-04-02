@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CircuitRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Section;
+use App\Entity\Voiture;
 
 #[ORM\Entity(repositoryClass: CircuitRepository::class)]
 class Circuit
@@ -33,6 +34,10 @@ class Circuit
     private bool $medailleArgent = false;
 
     private bool $medailleBronze = false;
+
+    private Voiture $voiture;
+
+    
 
     public function getId(): ?int
     {
@@ -113,6 +118,15 @@ class Circuit
     {
         return $this->medailleBronze;
     }
+
+    public function setVoiture(Voiture $voiture): self
+    {
+        $this->voiture = $voiture;
+
+        return $this;
+    }
+
+    
 
 
     public function setMedals($nomMedaille): self {

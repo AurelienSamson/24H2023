@@ -74,10 +74,10 @@ class Section
                 $value = 15;
                 break;
             case "Dirt":
-                $value = 50;
+                $value = 35;
                 break;
             case "Ice":
-                $value = 50;
+                $value = 20;
                 break;
         }
 

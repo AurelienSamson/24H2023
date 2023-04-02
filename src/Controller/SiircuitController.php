@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Circuit;
+use App\Entity\Voiture;
 use App\Service\ApiRestService;
 
 class SiircuitController extends AbstractController
@@ -28,12 +29,15 @@ class SiircuitController extends AbstractController
         foreach($listCircuit as $circuit) {
             if ($circuit->optional == false) {
                 $circuit_medals = $this->api->CallRaces(url:'run', raceId:$circuit->id, teamId:21);
+                $voiture = new Voiture($circuit_medals->stats->power, $circuit_medals->stats->acceleration, $circuit_medals->stats->grip, $circuit_medals->stats->handlingAbility, $circuit_medals->stats->weight);
                 $circuit_medals = $circuit_medals->medal;
+                
                 $circuit_offi = new Circuit;
                 $circuit_offi->setImage($circuit->image);
                 $circuit_offi->setName($circuit->name);
                 $circuit_offi->setTours($circuit->laps);
                 $circuit_offi->setMedals($circuit_medals);
+                $circuit_offi->setVoiture($voiture);
                 foreach ($circuit->sections as $section) {
                     $circuit_offi->addSection($section->terrain, $section->type);
                 }

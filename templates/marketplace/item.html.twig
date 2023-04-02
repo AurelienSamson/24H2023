@@ -103,6 +103,10 @@
         color: #007b5e !important;
     }
 
+    .backside .stats {
+        font-size: 10px;
+    }
+
     .frontside .card .card-body img {
         width: 120px;
         height: 120px;
@@ -146,7 +150,7 @@
                                 <h4 class="card-title">{{item.name}}</h4>
                                 <div class="row justify-content-between">
                                     {% for stat in item.statistiques %}
-                                        <div class="col-6 text-start">
+                                        <div class="col-6 text-start stats">
                                             {{stat.type}}: {{stat.value}}
                                             {% set diff = stat.value - statEqui[item.type][stat.type][1] %}
                                             <strong class="{% if diff >= 0 and statEqui[item.type][stat.type][0] %}c-green{% else %}c-red{% endif %}">

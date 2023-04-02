@@ -12,7 +12,7 @@ class ApiRestService
         $this->client = new Client([
             'base_uri' => 'http://185.98.136.60:9090',
             'headers' => [
-                'Authorization' => 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJITlhWT3dMMVNwaXRINmh0Q052aVJPSjlrcjFSd05PM3NqckVqbTdlWUswIn0.eyJleHAiOjE2ODA0Mjc5NjMsImlhdCI6MTY4MDQwNjM2MywianRpIjoiYWQ5OWQxODgtNjE5My00OGFhLTg3NWQtMmQ0ZDg5YThjNGU0IiwiaXNzIjoiaHR0cDovLzE4NS45OC4xMzYuNjA6ODA4MC9yZWFsbXMvY29kZWxlbWFucyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJlZDkxMzAxYy1lZDFlLTRlNWQtYTcxNS0wODUyMmQ5ZmE4ZTUiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhcHAtZGVmaS0yNGgiLCJzZXNzaW9uX3N0YXRlIjoiNmZmOWY3YjUtMDM4Ny00ODM4LTlkZDQtNDNlOWY4MzgzZDQ2IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtY29kZWxlbWFucyIsInVtYV9hdXRob3JpemF0aW9uIiwidXNlciJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6IjZmZjlmN2I1LTAzODctNDgzOC05ZGQ0LTQzZTlmODM4M2Q0NiIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzbW9vdGh5IiwidGVhbV9pZCI6IjIxIiwiZ2l2ZW5fbmFtZSI6IiIsImZhbWlseV9uYW1lIjoiIiwidGVhbV9uYW1lIjoiU21vb3RoeSJ9.FVnpHFg0hXqnow0Bj1-4jWxndUSXPGO47qBBRWipogsFFqfIvNPEAii5-q8FcarBg5nW2L3QbgKVQwWpTpQqIyjitrfJpxT0qPWErxFHzexM-cqRxLOn8lYhJdClDmXY6GbUL-1xWaqCTJ14YQwj-A9Ua7u8tYnXSaA1foVIF9gQ7C92NCqJEQRufoiu3CDGSdeUrlnqpwmKkZqNctgZ7KxWh9ydPCSyYffW3yewDCyOG4lOcjbMtRmJGaKzvrMsAj4eq5NYnXbB3VBt8FIedRPFRdI68OemFA_pylpwmzUpbmApqWKIKox9iA8NQcMmWxCeraksWol927Y-XS51yA',
+                'Authorization' => 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJITlhWT3dMMVNwaXRINmh0Q052aVJPSjlrcjFSd05PM3NqckVqbTdlWUswIn0.eyJleHAiOjE2ODA0MzkxMzQsImlhdCI6MTY4MDQxNzUzNCwianRpIjoiMDFhMjc0YmItZDVhNC00NmVlLTlmOTgtOTk1MzhiOWU3ZDBlIiwiaXNzIjoiaHR0cDovLzE4NS45OC4xMzYuNjA6ODA4MC9yZWFsbXMvY29kZWxlbWFucyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJlZDkxMzAxYy1lZDFlLTRlNWQtYTcxNS0wODUyMmQ5ZmE4ZTUiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhcHAtZGVmaS0yNGgiLCJzZXNzaW9uX3N0YXRlIjoiMzUzMDMyMDgtMjQ2Zi00NTNlLTkyOTQtY2I0NDUyNzc1OGYxIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtY29kZWxlbWFucyIsInVtYV9hdXRob3JpemF0aW9uIiwidXNlciJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsInNpZCI6IjM1MzAzMjA4LTI0NmYtNDUzZS05Mjk0LWNiNDQ1Mjc3NThmMSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzbW9vdGh5IiwidGVhbV9pZCI6IjIxIiwiZ2l2ZW5fbmFtZSI6IiIsImZhbWlseV9uYW1lIjoiIiwidGVhbV9uYW1lIjoiU21vb3RoeSJ9.gy36TfrP5OvB_K5SUIrEZdlngc3Fcv2xdxQSzYZsC-ScoVJvHI8kVusW00yLLTZHS2oRN9BAQ4atBi6E7Eyi-VLvA17x2Ipc9DDhPMfnzjNfHOtX2sV3cVNlePxjY4grRRrdpNWNsQS_Ztlr6EHDyVjvgxtfJUtWuDfdaFtANCtiCJmTmYsVxU1APEZmwxtuBXyN6XDSSt90_IGMhr5nmGjs7bLnBv_MWLGh8S1Z1ek2S-7v-hl1zAoTVlShvWhz4fapcMtt0wJPmOiFCTCpc4tyXvy2g0QgV4G2PG1lTzA0rw4Zgo_mI-zPMacGx1Lcii_xFsP3GszsV8ZJQ9jFeA',
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
             ]
@@ -24,6 +24,24 @@ class ApiRestService
             'password' => 'r6Q5$0RzNIzv^2Eq',
         ];
     }
+
+    // private function GenerateTocken()
+    // {
+    //     $client = new Client([
+    //         'base_uri' => 'http://185.98.136.60:8080',
+    //         'headers' => [
+    //             'Authorization' => '',
+    //             'Content-Type' => 'application/json',
+    //             'Accept' => 'application/json',
+    //         ]
+    //     ]);
+    //     $response = $client->request('POST', '/realms/codelemans/protocol/openid-connect/token', [
+    //         'json' => $this->body,
+    //     ]);
+    //     $content = json_decode( $response->getBody()->getContents() );
+
+    //     dd($content);
+    // }
 
     public function CallTeams($teamId = "", $url = "", $raceId = "")
     {

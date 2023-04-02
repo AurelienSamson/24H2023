@@ -6,27 +6,39 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Circuit;
+use App\Service\ApiRestService;
 
 class SiircuitController extends AbstractController
 {
+    public function __construct(public ApiRestService $api) {
+        $this->api = $api;
+    }
+
     #[Route('/siircuit', name: 'app_siircuit')]
     public function index(): Response
     {
-        $folderOffi = './assets/images/races/officielles';
 
+        $listCircuit = $this->api->CallRaces(url:'all', teamId:21);
 
-        $filesOffi = scandir($folderOffi);
+        //dd($listCircuit);
         
 
         // Parcourez les fichiers et affichez-les un par un
         $imagesOffi = [];
-        foreach($filesOffi as $file) {
-            if($file != "." && $file != "..") { // Ignorez les fichiers "." et ".." qui représentent le dossier courant et le dossier parent
+        foreach($listCircuit as $circuit) {
+            if ($circuit->optional == false) {
                 $circuit_offi = new Circuit;
-                $circuit_offi->setImage($file);
-                $circuit_offi->generateNameFromImage($file);
+                $circuit_offi->setImage($circuit->image);
+                $circuit_offi->setName($circuit->name);
+                $circuit_offi->setTours($circuit->laps);
+                foreach ($circuit->sections as $section) {
+                    $circuit_offi->addSection($section->terrain, $section->type);
+                }
+                $circuit_offi->getTimeAllLaps();
                 $imagesOffi []= $circuit_offi;
             }
+                
+        
         }
 
 

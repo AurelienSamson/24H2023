@@ -49,7 +49,7 @@ class SiircuitController extends AbstractController
 
 
         return $this->render('siircuit/index.html.twig', [
-            'controller_name' => 'SiircuitController',
+            'title' => 'Siircuit',
             'images_circuit_offi' => $imagesOffi
         ]);
     }
@@ -86,7 +86,7 @@ class SiircuitController extends AbstractController
 
 
         return $this->render('siircuit/option.html.twig', [
-            'controller_name' => 'SiircuitOptionController',
+            'title' => 'Siircuit',
             'images_circuit_option' => $imagesOption
         ]);
     }

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>Sop'Racing</title>
         
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         
@@ -40,11 +40,15 @@
         <div class="container-fluid p-0" style="height:100%">
             <div class="d-flex" style="height:100%">
 
-                {% include 'navbar.html.twig' %}
+                <div class="screen-box">
+                    {% include 'navbar.html.twig' %}
+                </div>
 
-                <main class="d-flex flex-column p-3 overflow-auto" style="width:100%">
-                    {% block body %}{% endblock %}
-                </main>
+                <div class="screen-box">
+                    <main class="d-flex flex-column p-3 overflow-auto">
+                        {% block body %}{% endblock %}
+                    </main>
+                </div>
 
             </div>
         </div>

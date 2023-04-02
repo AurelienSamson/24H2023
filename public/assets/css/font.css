@@ -1,10 +1,8 @@
 @font-face {
-    font-family: "CreamCake";
-    src: url("assets/font/CreamCake.otf") format(otf);
+    font-family: "Racer";
+    src: url("../font/RACER___.TTF") format('truetype');
 }
 
 body {
-    background-color: rgb(49,56,156);
-    font-family: 'CreamCake';
+    font-family: 'Racer';
 }
-

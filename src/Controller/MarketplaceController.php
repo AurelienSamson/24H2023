@@ -32,6 +32,7 @@ class MarketplaceController extends AbstractController
         $statEquip = $this->getStat();
 
         return $this->render('marketplace/index.html.twig', [
+            'title' => 'La MarketPlace',
             'category' => null,
             'items' => $this->getItems(),
             'statEqui' => $statEquip,
@@ -49,6 +50,7 @@ class MarketplaceController extends AbstractController
         $statEquip = $this->getStat();
 
         return $this->render('marketplace/items.html.twig', [
+            'title' => 'La MarketPlace',
             'category' => $type,
             'items' => $this->getItems($type),
             'statEqui' => $statEquip,

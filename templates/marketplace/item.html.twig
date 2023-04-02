@@ -1,0 +1,176 @@
+<style>
+    @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+    #team {
+        background: #eee !important;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+    section .section-title {
+        text-align: center;
+        color: #007b5e;
+        margin-bottom: 50px;
+        text-transform: uppercase;
+    }
+
+    #team .card {
+        border: none;
+        background: #ffffff;
+    }
+
+    .card{
+        border: 0;
+    }
+
+    .image-flip:hover .backside,
+    .image-flip.hover .backside {
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+        border-radius: .25rem;
+    }
+
+    .image-flip:hover .frontside,
+    .image-flip.hover .frontside {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+
+    .mainflip {
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -moz-transition: 1s;
+        -moz-transform: perspective(1000px);
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+        position: relative;
+    }
+
+    .frontside {
+        position: relative;
+        -webkit-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        z-index: 2;
+        margin-bottom: 30px;
+    }
+
+    .backside {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: white;
+        -webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+        -o-transform: rotateY(-180deg);
+        -ms-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
+        -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    }
+
+    .frontside,
+    .backside {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transition: 1s;
+        -moz-transform-style: preserve-3d;
+        -o-transition: 1s;
+        -o-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+    }
+
+    .frontside .card .card-title,
+    .backside .card .card-title {
+        color: #007b5e !important;
+    }
+
+    .backside .stats {
+        font-size: 10px;
+    }
+
+    .frontside .card .card-body img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+    }
+
+    .list-group-item{
+        padding: 0.1rem 0;
+    }
+
+    .c-red{
+        color: red;
+    }
+    .c-green{
+        color: green;
+    }
+</style>
+<div class="row justify-content-between">
+    {% for item in items %}
+        <div class="col-xl-4 col-lg-6 col-mg-12">
+            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                <div class="mainflip">
+                    <div class="frontside">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p><img class="img-fluid" src="{{item.image|replace({'../../../assets' : '/assets/images'})}}.png" alt="card image"></p>
+                                <h4 class="card-title">{{item.name}}</h4>
+                                <div class="mt-4">
+                                    <strong>Cout : </strong>
+                                    {{item.sellingPrice}}
+                                    <br>
+                                    <strong>Niveau de raretee : </strong>
+                                    {{item.rarity}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="backside">
+                        <div class="card">
+                            <div class="card-body text-center mt-4">
+                                <h4 class="card-title">{{item.name}}</h4>
+                                <div class="row justify-content-between">
+                                    {% for stat in item.statistiques %}
+                                        <div class="col-6 text-start stats">
+                                            {{stat.type}}: {{stat.value}}
+                                            {% set diff = stat.value - statEqui[item.type][stat.type][1] %}
+                                            <strong class="{% if diff >= 0 and statEqui[item.type][stat.type][0] %}c-green{% else %}c-red{% endif %}">
+                                                ({{ diff }})
+                                            </strong>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="card-body px-5">
+                                <form enctype="multipart/form-data" method="post" name="form" class="d-grid">
+                                    <input type="hidden" name="itemId" value="{{item.id}}">
+                                    <input type="hidden" name="teamId" value="-1">
+                                    <button type="submit" class="btn btn-primary">Acheter</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

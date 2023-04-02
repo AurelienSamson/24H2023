@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "Racer";
+    src: url("../font/RACER___.TTF") format('truetype');
+}
+
+body {
+    font-family: 'Racer';
+}

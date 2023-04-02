@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% block inventory %}
+    <h2 class="text-uppercase">{{title}}</h2>
+
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-link {% if category is null %}active{% endif %}" href="{{ path('app_marketplace') }}">Tous</a>
+                {% for key, itcat in itemsCategory %}
+                    <a class="nav-link {% if category == key %}active{% endif %}" href="{{ path('app_marketplace_items', { 'type' : key }) }}">{{itcat}}</a>
+                {% endfor %}
+            </div>
+        </nav>
+
+        <div class="py-5">
+                {% block items %}
+                    {% include 'marketplace/item.html.twig' %}
+                {% endblock items %}
+            </div>
+        </div>
+    {% endblock inventory %}
+
+{% endblock %}

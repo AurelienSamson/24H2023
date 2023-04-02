@@ -27,10 +27,6 @@ body {
   margin: 20px 10px;
 }
 
-.img-race{
-  background-image: url('../images/race.jpg');
-}
-
 /* SideBar */
 body {
   min-height: 100vh;

@@ -159,9 +159,29 @@ class Circuit
     {
         $oneTurnTime = 0;
         foreach($this->listeSection as $section) {
-            $oneTurnTime += $section->getTemps();
+            $sectionTime = $section->getTemps();
+            switch ($section->getTerrain()) {
+                case "Concrete":
+                    $sectionTime = $sectionTime * (1 + ($this->voiture->getPoids() / 100));
+                    break;
+                case "Dirt":
+                    $sectionTime = $sectionTime * (1 + ($this->voiture->getPoids() / 100 * 1.2));
+                    break;
+                case "Ice":
+                    break;
+            }
+            $oneTurnTime += $sectionTime;
         }
-        $this->tempsCircuit = $oneTurnTime * $this->tours;
+
+        $allLapsTime = $oneTurnTime * $this->tours;
+        $allLapsTime = $allLapsTime * ($this->voiture->getAcceleration() / 60) * ($this->voiture->getPuissance() / 60);
+        $allLapsTime = $allLapsTime + (intval(1/50 * $this->voiture->getUsure() * $this->tours) * 25);
+        $allLapsTime = $allLapsTime + (intval(1/100 * $this->voiture->getConso() * $this->tours) * 25);
+        $allLapsTime = round($allLapsTime, 2);
+
+
+
+        $this->tempsCircuit = $allLapsTime;
         return $this;
     }
 

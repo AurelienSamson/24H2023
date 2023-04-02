@@ -28,6 +28,12 @@ class Voiture
     #[ORM\Column]
     private ?int $poids = null;
 
+    #[ORM\Column]
+    private ?int $conso = null;
+
+    #[ORM\Column]
+    private ?int $usure = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,11 +99,23 @@ class Voiture
         return $this;
     }
 
-    public function __construct($puissance, $acceleration, $adherence, $maniabilite, $poids) {
+    public function getUsure(): ?int
+    {
+        return $this->usure;
+    }
+
+    public function getConso(): ?int
+    {
+        return $this->conso;
+    }
+
+    public function __construct($puissance, $acceleration, $adherence, $maniabilite, $poids, $conso, $usure) {
         $this->puissance = $puissance;
         $this->acceleration = $acceleration;
         $this->adherance = $adherence;
         $this->maniabilite = $maniabilite;
         $this->poids = $poids;
+        $this->conso = $conso;
+        $this->usure = $usure;
     }
 }

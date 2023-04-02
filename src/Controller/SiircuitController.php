@@ -50,4 +50,33 @@ class SiircuitController extends AbstractController
             'images_circuit_offi' => $imagesOffi
         ]);
     }
+
+    #[Route('/siircuit/option', name: 'app_siircuit_option')]
+    public function option(): Response
+    {
+
+        $listCircuit = $this->api->CallRaces(url:'all', teamId:21);
+
+        //dd($listCircuit);
+
+        // Parcourez les fichiers et affichez-les un par un
+        $imagesOption = [];
+
+        foreach($listCircuit as $circuit) {
+            if ($circuit->optional == true) {
+                $circuit_option = new Circuit;
+                $circuit_option->setImage($circuit->image);
+                $circuit_option->setName($circuit->name);
+                $imagesOption []= $circuit_option;
+            }
+                
+        
+        }
+
+
+        return $this->render('siircuit/option.html.twig', [
+            'controller_name' => 'SiircuitOptionController',
+            'images_circuit_option' => $imagesOption
+        ]);
+    }
 }

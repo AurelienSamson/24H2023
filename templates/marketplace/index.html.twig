@@ -1,16 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{asset('assets/css/font.css')}}">
-{% endblock %}
-{% block javascripts %}
-    <script src="{{asset('assets/css/font.css')}}"></script>
-{% endblock %}
-
 {% block title %}Market Place{% endblock %}
 
 {% block body %}
-    {% include 'marketplace/stats_car.html.twig' %}
 
     {% block inventory %}
         <h2 class="text-uppercase">La Marketplace</h2>
@@ -24,17 +16,12 @@
             </div>
         </nav>
 
-        <div class="tab-content">
-            <div class="container">
-                <div class="row text-center py-5">
-                    {% block items %}
-                        {% include 'marketplace/item.html.twig' %}
-                    {% endblock items %}
-                </div>
+        <div class="py-5">
+                {% block items %}
+                    {% include 'marketplace/item.html.twig' %}
+                {% endblock items %}
             </div>
         </div>
-
-        <script src="{{asset('assets/css/font.css')}}"></script>
     {% endblock inventory %}
 
 {% endblock %}

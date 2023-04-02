@@ -15,6 +15,10 @@
     overflow-x: auto;
     overflow-y: hidden;
   }
+
+  .side-race{
+    background-color: red;
+  }
   
   .dropdown-toggle { outline: 0; }
   
@@ -64,7 +68,7 @@
   }
 </style>
 
-  <div class="flex-shrink-0 p-3" style="width: 280px;">
+  <div class="flex-shrink-0 p-3 side-race" style="width: 280px; height:100%">
     <a href="{{ path('app_accueil') }}" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom">
       <img src="{{ asset('assets/images/smoosii.jpg') }}" alt="TODO" width="30px" height="30px" class="d-inline-block align-text-top">
       <span class="fs-5 fw-semibold px-2">Sop'Racing</span>
@@ -88,7 +92,6 @@
         <div class="collapse" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="{{ path('app_marketplace') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Marketplace</a></li>
-            <li><a href="{{ path('app_marketplace_inventory') }}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Inventaire</a></li>
           </ul>
         </div>
       </li>

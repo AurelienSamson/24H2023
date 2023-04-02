@@ -157,7 +157,7 @@ class ApiRestService
 
         try {
             $response = $this->client->request('GET', '/items', [
-                'json' => $this->body
+                'json' => $this->body,
             ]);
             $statusCode = $response->getStatusCode();
             $content = json_decode( $response->getBody()->getContents() );

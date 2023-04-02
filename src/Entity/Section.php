@@ -82,10 +82,10 @@ class Section
         }
 
         switch ($slop) {
-            case "Up":
+            case "Uphill":
                 $value *= 2.33;
                 break;
-            case "Down":
+            case "Downhill":
                 $value *= 0.66;
                 break;
             case "Straight":
@@ -94,11 +94,13 @@ class Section
             case "Turn":
                 $value *= 2;
                 break;
-            case "Hard Turn":
+            case "Sharp turn":
                 $value *= 3.33;
                 break;
         }
 
+        $this->terrain = $terrain;
+        $this->slop = $slop;
         $this->temps = $value;
       }
 

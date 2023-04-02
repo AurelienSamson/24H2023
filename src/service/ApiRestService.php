@@ -109,7 +109,7 @@ class ApiRestService
         }else{
             $call = '/' . $raceId;
 
-            $call .= ($url == "run")? '/run' : '/teamRace';
+            $call .= ($url == "run")? '/run/' : '/teamRace';
             $call .= $teamId;
             $call .= ($url == "run")? '' : '/' . $url;
         }

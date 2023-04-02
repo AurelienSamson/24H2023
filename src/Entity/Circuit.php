@@ -20,6 +20,9 @@ class Circuit
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[ORM\Column]
+    private ?int $tours = null;
+
     private array $listeSection = [];
 
     #[ORM\Column]
@@ -49,7 +52,7 @@ class Circuit
 
     public function setImage(string $image): self
     {
-        $this->image = $image;
+        $this->image = $image . ".svg";
 
         return $this;
     }
@@ -66,6 +69,18 @@ class Circuit
         return $this;
     }
 
+    public function getTours(): ?int
+    {
+        return $this->tours;
+    }
+
+    public function setTours(int $tours): self
+    {
+        $this->tours = $tours;
+
+        return $this;
+    }
+
     public function getListeSection(): ?array
     {
         return $this->listeSection;
@@ -78,22 +93,20 @@ class Circuit
         return $this;
     }
 
-    public function addSections($nomTerrain, $nomSlop, $nbrSection): self
+    public function addSection($nomTerrain, $nomSlop): self
     {
-        for ($i = 1; $i <= $nbrSection; $i++) {
             $this->listeSection[] = new Section($nomTerrain, $nomSlop);
-        }
+            return $this;
     }
 
 
-    
-
-
-    public function generateNameFromImage(string $image): self
+    public function getTimeAllLaps(): self
     {
-        $replaced = str_replace('_', ' ', $image);
-        $this->name = ucwords($replaced);
-
+        $oneTurnTime = 0;
+        foreach($this->listeSection as $section) {
+            $oneTurnTime += $section->getTemps();
+        }
+        $this->tempsCircuit = $oneTurnTime * $this->tours;
         return $this;
     }
 

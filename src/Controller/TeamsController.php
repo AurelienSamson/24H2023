@@ -21,7 +21,19 @@ class TeamsController extends AbstractController
 
         return $this->render('teams/index.html.twig', [
             'title' => 'Teams',
-            'teams' => $teams
+            'teams' => $teams,
+            'teamId' => 21
+        ]);
+    }
+
+    #[Route('/teams/inventory', name: 'app_teams_inventory')]
+    public function inventory(): Response
+    {
+        $inventaires = $this->api->CallTeamInventory(teamId:21);
+
+        return $this->render('teams/inventory.html.twig', [
+            'title' => 'Inventaires',
+            'inventaires' => $inventaires
         ]);
     }
 }

@@ -10,28 +10,31 @@
 {% block title %}Market Place{% endblock %}
 
 {% block body %}
-    {# {% include 'marketplace/stats_car.html.twig' %} #}
+    {% include 'marketplace/stats_car.html.twig' %}
 
-    <h2 class="text-uppercase">La Marketplace</h2>
+    {% block inventory %}
+        <h2 class="text-uppercase">La Marketplace</h2>
 
-    <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-link {% if category is null %}active{% endif %}" href="{{ path('app_marketplace') }}">Tous</a>
-            {% for key, itcat in itemsCategory %}
-                <a class="nav-link {% if category == key %}active{% endif %}" href="{{ path('app_marketplace_items', { 'type' : key }) }}">{{itcat}}</a>
-            {% endfor %}
-        </div>
-    </nav>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-link {% if category is null %}active{% endif %}" href="{{ path('app_marketplace') }}">Tous</a>
+                {% for key, itcat in itemsCategory %}
+                    <a class="nav-link {% if category == key %}active{% endif %}" href="{{ path('app_marketplace_items', { 'type' : key }) }}">{{itcat}}</a>
+                {% endfor %}
+            </div>
+        </nav>
 
-    <div class="tab-content">
-        <div class="container">
-            <div class="row text-center">
-                {% block items %}
-                    {% include 'marketplace/item.html.twig' %}
-                {% endblock items %}
+        <div class="tab-content">
+            <div class="container">
+                <div class="row text-center py-5">
+                    {% block items %}
+                        {% include 'marketplace/item.html.twig' %}
+                    {% endblock items %}
+                </div>
             </div>
         </div>
-    </div>
 
-    <script src="{{asset('assets/css/font.css')}}"></script>
+        <script src="{{asset('assets/css/font.css')}}"></script>
+    {% endblock inventory %}
+
 {% endblock %}

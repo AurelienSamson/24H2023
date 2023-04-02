@@ -7,10 +7,10 @@ document.getElementById('statsVoiture'),
 {
     type: 'bar',
     data: {
-        labels: [ {% for stat in statsVoiture %}'{{ stat[0] }}',{% endfor %} ],
+        labels: [ {% for label in stats.label %}'{{ label }}',{% endfor %} ],
         datasets: [
             {
-                data: [ {% for stat in statsVoiture %}'{{ stat[1] }}',{% endfor %} ],
+                data: [ {% for stat in stats.statsVoiture %}'{{ stat }}',{% endfor %} ],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(255, 159, 64, 1)',
@@ -32,7 +32,7 @@ document.getElementById('statsVoiture'),
                 borderWidth: 1
             },
             {
-                data: [ {% for stat in statsVoitureModifie %}'{{ stat[1] }}',{% endfor %} ],
+                data: [ {% for stat in stats.statsVoitureModifie %}'{{ stat }}',{% endfor %} ],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(255, 159, 64, 0.2)',

@@ -21,25 +21,40 @@ class MarketplaceController extends AbstractController
         $this->api = $api;
     }
 
-    #[Route('/marketplace', name: 'app_marketplace')]
+    #[Route('/marketplace/all', name: 'app_marketplace')]
     public function index(): Response
     {
         return $this->render('marketplace/index.html.twig', [
             'category' => null,
             'items' => $this->getItems(),
             'stats' => $this->getStats(),
+            
             'itemsCategory' => $this->itemsCategory,
             'imageObjets' => $this->getImageObjets()
         ]);
     }
 
-    #[Route('/marketplace/{type}', name: 'app_marketplace_items')]
+    #[Route('/marketplace/type/{type}', name: 'app_marketplace_items')]
     public function items($type)
     {
         return $this->render('marketplace/items.html.twig', [
             'category' => $type,
             'items' => $this->getItems($type),
+            'stats' => $this->getStats(),
+
             'itemsCategory' => $this->itemsCategory,
+        ]);
+    }
+
+    #[Route('/marketplace/inventory', name: 'app_marketplace_inventory')]
+    public function inventory()
+    {
+        return $this->render('marketplace/inventory.html.twig', [
+            'stats' => $this->getStats(),
+            // 'category' => $type,
+            // 'items' => $this->getItems($type),
+
+            // 'itemsCategory' => $this->itemsCategory,
         ]);
     }
 
@@ -72,24 +87,32 @@ class MarketplaceController extends AbstractController
     public function getStats()
     {
         return [
-            "statsVoiture"=> [
-                ["puissance", 2],
-                ["accélération", 0],
-                ["adhérence", 0],
-                ["maniabilité", 0],
-                ["consommation", 0],
-                ["usure", 0],
-                ["poids", 0],
+            "label" => [
+                "puissance",
+                "accélération",
+                "adhérence",
+                "maniabilité",
+                "consommation",
+                "usure",
+                "poids",
             ],
-    
+            "statsVoiture"=> [
+                2,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
             "statsVoitureModifie"=> [
-                ["puissance", 1],
-                ["accélération", 0],
-                ["adhérence", 0],
-                ["maniabilité", 0],
-                ["consommation", 0],
-                ["usure", 0],
-                ["poids", 0],
+                1,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
             ],
         ];
     }

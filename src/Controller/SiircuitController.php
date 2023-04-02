@@ -26,12 +26,15 @@ class SiircuitController extends AbstractController
 
         // Parcourez les fichiers et affichez-les un par un
         $imagesOffi = [];
+
+        $voiture1 = new Voiture(1, 1, 1, 1, 100, 0, 0);
+        $voiture2 = new Voiture(60, 60, 60, 60, 0, 0, 0);
+
         foreach($listCircuit as $circuit) {
             if ($circuit->optional == false) {
                 $circuit_medals = $this->api->CallRaces(url:'run', raceId:$circuit->id, teamId:21);
                 $voiture = new Voiture($circuit_medals->stats->power, $circuit_medals->stats->acceleration, $circuit_medals->stats->grip, $circuit_medals->stats->handlingAbility, $circuit_medals->stats->weight, $circuit_medals->stats->energyConsumption, $circuit_medals->stats->wear);
                 $circuit_medals = $circuit_medals->medal;
-                
                 $circuit_offi = new Circuit;
                 $circuit_offi->setImage($circuit->image);
                 $circuit_offi->setName($circuit->name);
@@ -68,6 +71,9 @@ class SiircuitController extends AbstractController
 
         // Parcourez les fichiers et affichez-les un par un
         $imagesOption = [];
+
+        $voiture1 = new Voiture(1, 1, 1, 1, 100, 0, 0);
+        $voiture2 = new Voiture(60, 60, 60, 60, 0, 0, 0);
 
         foreach($listCircuit as $circuit) {
             if ($circuit->optional == true) {

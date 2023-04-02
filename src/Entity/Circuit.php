@@ -177,6 +177,7 @@ class Circuit
         $allLapsTime = $allLapsTime * ($this->voiture->getAcceleration() / 60) * ($this->voiture->getPuissance() / 60);
         $allLapsTime = $allLapsTime + (intval(1/50 * $this->voiture->getUsure() * $this->tours) * 25);
         $allLapsTime = $allLapsTime + (intval(1/100 * $this->voiture->getConso() * $this->tours) * 25);
+        $allLapsTime = round($allLapsTime, 2);
 
 
 

@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Service\ApiRestService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MarketplaceController extends AbstractController
 {
@@ -22,40 +23,83 @@ class MarketplaceController extends AbstractController
     }
 
     #[Route('/marketplace/all', name: 'app_marketplace')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        if (count($request->request) > 0) {
+            $this->buy($request);
+        }
+
+        $statEquip = $this->getStat();
+
         return $this->render('marketplace/index.html.twig', [
             'category' => null,
             'items' => $this->getItems(),
-            'stats' => $this->getStats(),
-            
+            'statEqui' => $statEquip,
             'itemsCategory' => $this->itemsCategory,
-            'imageObjets' => $this->getImageObjets()
         ]);
     }
 
     #[Route('/marketplace/type/{type}', name: 'app_marketplace_items')]
-    public function items($type)
+    public function items(Request $request, $type)
     {
+        if (count($request->request) > 0) {
+            $this->buy($request);
+        }
+
+        $statEquip = $this->getStat();
+
         return $this->render('marketplace/items.html.twig', [
             'category' => $type,
             'items' => $this->getItems($type),
-            'stats' => $this->getStats(),
-
+            'statEqui' => $statEquip,
             'itemsCategory' => $this->itemsCategory,
         ]);
     }
 
-    #[Route('/marketplace/inventory', name: 'app_marketplace_inventory')]
-    public function inventory()
+    public function getStat()
     {
-        return $this->render('marketplace/inventory.html.twig', [
-            'stats' => $this->getStats(),
-            // 'category' => $type,
-            // 'items' => $this->getItems($type),
+        $itemVehicul = $this->api->CallTeams(teamId:21, url:'inventory/equip')->items;
 
-            // 'itemsCategory' => $this->itemsCategory,
-        ]);
+        $items = [];
+        foreach ($itemVehicul as $key => $value) {
+            foreach ($value->item->statistiques as $key => $stat) {
+                switch ($stat->type) {
+                    case 'Power':
+                            $items [$value->item->type][$stat->type]= [true, $stat->value];
+                        break;
+                        case 'Grip':
+                            $items [$value->item->type][$stat->type]= [true, $stat->value];
+                        break;
+                    case 'Weight':
+                            $items [$value->item->type][$stat->type]= [false, $stat->value];
+                        break;
+                    case 'Energy consumption':
+                            $items [$value->item->type][$stat->type]= [false, $stat->value];
+                        break;
+                    case 'Acceleration':
+                            $items [$value->item->type][$stat->type]= [true, $stat->value];
+                        break;
+                    case 'Handling ability':
+                            $items [$value->item->type][$stat->type]= [true, $stat->value];
+                        break;
+                    case 'Wear':
+                            $items [$value->item->type][$stat->type]= [false, $stat->value];
+                        break;
+                }
+            }
+        }
+
+        return $items;
+    }
+
+    public function buy($request)
+    {
+        foreach ($request->request as $key => $value){
+            if ($key == "itemId") $itemId = $value;
+            if ($key == "teamId") $teamId = $value;
+        }
+
+        $this->api->CallItems(methode:'POST', url:'buy', itemId:$itemId, teamId:$teamId);
     }
 
     public function getItems($type = "")
@@ -82,60 +126,5 @@ class MarketplaceController extends AbstractController
         }
 
         return $items;
-    }
-
-    public function getStats()
-    {
-        return [
-            "label" => [
-                "puissance",
-                "accélération",
-                "adhérence",
-                "maniabilité",
-                "consommation",
-                "usure",
-                "poids",
-            ],
-            "statsVoiture"=> [
-                2,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-            ],
-            "statsVoitureModifie"=> [
-                1,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-            ],
-        ];
-    }
-
-    public function getImageObjets($objets = "")
-    {
-        $imageObjets = [
-            'imageObjets_brakes'   => [],
-            'imageObjets_kits'     => [],
-            'imageObjets_motors'   => [],
-            'imageObjets_spoilers' => [],
-            'imageObjets_wheels'   => [],
-        ];
-
-        foreach ($this->itemsCategory as $key => $caterogy) {
-            $filesBrakes = scandir('./assets/images/items/' . $key);
-            foreach($filesBrakes as $file) {
-                if($file != "." && $file != "..") { // Ignorez les fichiers "." et ".." qui représentent le dossier courant et le dossier parent
-                    $imageObjets['imageObjets_'.$key] []= $file;
-                }
-            }
-        }
-
-        return ($objets)? $imageObjets[$objets] : $imageObjets;
     }
 }

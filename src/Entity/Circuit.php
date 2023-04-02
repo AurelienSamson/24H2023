@@ -28,6 +28,12 @@ class Circuit
     #[ORM\Column]
     private ?float $tempsCircuit = null;
 
+    private bool $medailleOr = false;
+
+    private bool $medailleArgent = false;
+
+    private bool $medailleBronze = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +97,41 @@ class Circuit
         $this->listeSection = $listeSection;
 
         return $this;
+    }
+
+    public function getMedailleOr(): ?int
+    {
+        return $this->medailleOr;
+    }
+
+    public function getMedailleArgent(): ?int
+    {
+        return $this->medailleArgent;
+    }
+
+    public function getMedailleBronze(): ?int
+    {
+        return $this->medailleBronze;
+    }
+
+
+    public function setMedals($nomMedaille): self {
+        switch ($nomMedaille) {
+            case "Gold":
+                $this->medailleOr = true;
+                $this->medailleArgent = true;
+                $this->medailleBronze = true;
+                break;
+            case "Silver":
+                $this->medailleArgent = true;
+                $this->medailleBronze = true;
+                break;
+            case "Brass":
+                $this->medailleBronze = true;
+                break;
+        }
+        return $this;
+
     }
 
     public function addSection($nomTerrain, $nomSlop): self

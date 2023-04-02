@@ -4,6 +4,198 @@
 
 {% block body %}
 
+<style>
+    @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+    #team {
+        background: #eee !important;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+        background-color: #108d6f;
+        border-color: #108d6f;
+        box-shadow: none;
+        outline: none;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #007b5e;
+        border-color: #007b5e;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+    section .section-title {
+        text-align: center;
+        color: #007b5e;
+        margin-bottom: 50px;
+        text-transform: uppercase;
+    }
+
+    #team .card {
+        border: none;
+        background: #ffffff;
+    }
+
+    .image-flip:hover .backside,
+    .image-flip.hover .backside {
+        -webkit-transform: rotateY(0deg);
+        -moz-transform: rotateY(0deg);
+        -o-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        transform: rotateY(0deg);
+        border-radius: .25rem;
+    }
+
+    .image-flip:hover .frontside,
+    .image-flip.hover .frontside {
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+        -o-transform: rotateY(180deg);
+        transform: rotateY(180deg);
+    }
+
+    .mainflip {
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -moz-transition: 1s;
+        -moz-transform: perspective(1000px);
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+        position: relative;
+    }
+
+    .frontside {
+        position: relative;
+        -webkit-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        z-index: 2;
+        margin-bottom: 30px;
+    }
+
+    .backside {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: white;
+        -webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+        -o-transform: rotateY(-180deg);
+        -ms-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
+        -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    }
+
+    .frontside,
+    .backside {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transition: 1s;
+        -moz-transform-style: preserve-3d;
+        -o-transition: 1s;
+        -o-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+    }
+
+    .frontside .card,
+    .backside .card {
+        min-height: 550px;
+        width: 450px;
+    }
+
+    .backside .card a {
+        font-size: 18px;
+        color: #007b5e !important;
+    }
+
+    .frontside .card .card-title,
+    .backside .card .card-title {
+        color: #007b5e !important;
+    }
+
+    .frontside .card .card-body img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+    }
+
+    .list-group-item{
+        padding: 0.1rem 0;
+    }
+
+    .img_or {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .img_argent {
+      position: absolute;
+      top: 8px;
+      right: 61px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .img_bronze {
+      position: absolute;
+      top: 8px;
+      right: 106px;
+      width: 40px;
+      height: 40px;
+    }
+
+    .titre_course {
+      position: relative;
+      bottom: 70px;
+    }
+
+    .lap_icon {
+      position: absolute;
+      bottom: 8px;
+      left: 50px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .nb_laps {
+      position: absolute;
+      bottom: 15px;
+      left: 16px;
+    }
+
+    .temps_estime {
+      position: absolute;
+      bottom: 15px;
+      right: 90px;
+    }
+
+
+
+
+
+
+
+
+</style>
+
 
 
 
@@ -12,14 +204,44 @@
 
 {% for item in images_circuit_offi %}
 
- <div class="col-sm-3">
-  <div class="card">
-   <img src="/assets/images/races/officielles/{{ item.image }}" class="card-img-top" alt="...">
-   <div class="card-body">
-     <p class="card-text">{{ item.name }}</p>
-   </div>
-  </div>
-  </div>
+
+
+  <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+            <div class="mainflip">
+                <div class="frontside">
+                    <div class="card">
+                    {% if item.medailleOr == true %}
+                        <img src="/assets/images/others/medaille.png" class="img_or" alt="...">
+                    {% endif %}
+                    {% if item.medailleArgent == true %}
+                        <img src="/assets/images/others/medaille-dargent.png" class="img_argent" alt="...">
+                    {% endif %}
+                    {% if item.medailleBronze == true %}
+                        <img src="/assets/images/others/medaille-de-bronze.png" class="img_bronze" alt="...">
+                    {% endif %}
+                    <p><img src="/assets/images/races/officielles/{{ item.image }}" class="card-img-top" alt="..."></p>
+                        <div class="card-body">
+                                <h2 class="card-title text-center titre_course">{{item.name}}</h2>
+                        </div>
+                        <h2><div class="nb_laps">{{item.tours}} </div></h2>
+                        <img src="/assets/images/others/icons8-racing-lap-100.png" class="lap_icon" alt="...">
+                        <h3><div class="temps_estime">Tps estimé :  </div></h3>
+                    </div>
+                </div>
+                <div class="backside">
+                    <div class="card">
+                        <div class="card-body text-center mt-4">
+                            <h4 class="card-title">{{item.name}}</h4>
+                            <ul class="list-group list-group-flush text-start">
+                              
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     
